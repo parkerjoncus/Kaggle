@@ -6,8 +6,8 @@ library(randomForest)
 trainPct <- .8
 testPct <- 1 - trainPct
 set.seed(34543)
-dataTrain <- read_csv("~/Documents/GitHub/Kaggle/Competitions/digit-recognizer/train.csv")
-dataTest <- read_csv("~/Documents/GitHub/Kaggle/Competitions/digit-recognizer/test.csv")
+dataTrain <- read_csv("~/Documents/GitHub/Kaggle/Competitions/digit-recognizer/data/train.csv")
+dataTest <- read_csv("~/Documents/GitHub/Kaggle/Competitions/digit-recognizer/data/test.csv")
 
 barplot(table(dataTrain[,1]), col=rainbow(10, 0.5), main="n Digits in Train")
 
@@ -62,6 +62,6 @@ plotTest(1:100)
 submission1<- data.frame(row.names(dataTest),dataTest$Prediction)
 colnames(submission1)<-c("ImageId","Label")
 submission1$ImageId<-as.integer(submission1$ImageId)
-write.csv(submission1, file = "~/Documents/GitHub/Kaggle/Competitions/digit-recognizer/submission1.csv", row.names = FALSE)
+write.csv(submission1, file = "~/Documents/GitHub/Kaggle/Competitions/digit-recognizer/submissions/RFsubmission1.csv", row.names = FALSE)
 
 
