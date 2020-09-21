@@ -14,12 +14,6 @@ index$X1 <- NULL
 train<- index[index$`train-valid`=="train",]
 test<- index[index$`train-valid`=="valid",]
 
-JPEGToPixels <- function(imagePath){
-  image <- readJPEG(imagePath)
-  
-  return(t(as.vector(t(image))))
-}
-
 CreateLowerResolution <- function(image,divisor){
   totalsize<-512/divisor
   return<-array(0,dim=c(totalsize,totalsize,3))
@@ -36,21 +30,22 @@ CreateLowerResolution <- function(image,divisor){
   }
   return(return)
 }
+numberofDivision = 16
+numberofRows = 512/numberofDivision
 harrypotter1 <- readJPEG('~/Documents/GitHub/Kaggle/Datasets/Lego/harry-potter/0001/001.jpg')
-newharrypotter<-CreateLowerResolution(harrypotter1,4)
+newharrypotter<-CreateLowerResolution(harrypotter1,numberofDivision)
 plot(1:2,1:2, type='n')
 rasterImage(newharrypotter, 1, 1, 2, 2)
 
+Train<-as.data.frame(matrix(0,ncol = numberofRows^2*3,nrow = 144))
+cbind(label=train$class_id,Train)
+
 for (i in 1:length(train$class_id)){
-  print(i)
+  image<-readJPEG(train$path[i])
+  image<-CreateLowerResolution(image,numberofDivision)
+  plot(1:2,1:2, type='n')
+  rasterImage(image, 1, 1, 2, 2)
 }
 
-View(train)
-harrypotter1 <- readJPEG('~/Documents/GitHub/Kaggle/Datasets/Lego/harry-potter/0001/001.jpg')
-View(harrypotter1)
-harrypotter2 <- readJPEG('~/Documents/GitHub/Kaggle/Datasets/Lego/marvel/0002/002.jpg')
-View(harrypotter2)
-plot(1:2,1:2, type='n')
-rasterImage(harrypotter1, 1, 1, 2, 2)
 
 
