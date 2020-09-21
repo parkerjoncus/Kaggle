@@ -38,14 +38,13 @@ plot(1:2,1:2, type='n')
 rasterImage(newharrypotter, 1, 1, 2, 2)
 
 Train<-as.data.frame(matrix(0,ncol = numberofRows^2*3,nrow = 144))
-cbind(label=train$class_id,Train)
 
 for (i in 1:length(train$class_id)){
   image<-readJPEG(train$path[i])
   image<-CreateLowerResolution(image,numberofDivision)
-  plot(1:2,1:2, type='n')
-  rasterImage(image, 1, 1, 2, 2)
+  Train[i,]<-t(as.vector(image))
 }
+Train<-cbind(label=train$class_id,Train)
 
 
 
